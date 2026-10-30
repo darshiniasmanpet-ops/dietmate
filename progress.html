@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}DietMate - Progress{% endblock %}
+{% block content %}
+<h1>📈 Weight progress</h1>
+<form method="POST" class="panel inline-form">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div><label for="weight">Today's weight (kg)</label>
+    <input id="weight" type="number" step="0.1" min="20" max="400" name="weight" value="{{ u.weight }}" required></div>
+    <button type="submit">Save weight</button>
+</form>
+
+{% if change is not none %}
+<p class="stack"><strong>
+{% if change > 0 %}Up {{ change }} kg{% elif change < 0 %}Down {{ change|abs }} kg{% else %}No change{% endif %}
+</strong> since your first entry shown below (goal: {{ u.goal }}).</p>
+{% endif %}
+
+{% if chart %}
+<svg viewBox="0 0 {{ chart.w }} {{ chart.h }}" class="chart" role="img" aria-label="Weight over time">
+    <text x="4" y="{{ chart.py + 4 }}">{{ chart.hi }} kg</text>
+    <text x="4" y="{{ chart.h - chart.py + 4 }}">{{ chart.lo }} kg</text>
+    <polyline points="{{ chart.poly }}" class="line"/>
+    {% for x, y, w, d in chart.points %}
+    <circle cx="{{ x }}" cy="{{ y }}" r="4" class="dot"><title>{{ d }}: {{ w }} kg</title></circle>
+    {% endfor %}
+</svg>
+{% else %}
+<p class="note">Save at least two weights to see your chart.</p>
+{% endif %}
+
+<h2>History</h2>
+<div class="table-wrap">
+<table>
+    <tr><th>Date</th><th>Weight</th></tr>
+    {% for l in logs %}<tr><td>{{ l.logged_at }}</td><td>{{ l.weight }} kg</td></tr>{% endfor %}
+</table>
+</div>
+{% endblock %}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}DietMate · Today{% endblock %}
+{% block content %}
+<h1>{{ today }}'s plate</h1>
+<p class="sub">{{ goal }} · {{ diet }} · about {{ target }} kcal · {{ m.pg }} g protein</p>
+<div class="stack">
+  {% for slot, label, icon in [('breakfast','Breakfast','🌅'),('lunch','Lunch','🍛'),('dinner','Dinner','🌙')] %}
+  <form method="POST" action="/check" class="meal {{ slot }} {{ 'done' if slot in checked }}">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="slot" value="{{ slot }}">
+    <div><h3>{{ icon }} {{ label }}</h3><p>{{ meals[slot] }}</p></div>
+    <button class="tick" aria-label="{{ 'Untick' if slot in checked else 'Tick' }} {{ label }}">{{ '✓' if slot in checked else '' }}</button>
+  </form>
+  {% endfor %}
+</div>
+<div class="panel water slim">
+  <h3>💧 {{ water }} / {{ wgoal }} glasses</h3>
+  <form method="POST" action="/water" class="pair">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="hidden" name="next" value="meals">
+    <button name="delta" value="-1" class="secondary" aria-label="Remove a glass">−</button>
+    <button name="delta" value="1">+ Glass</button>
+  </form>
+</div>
+<p class="hint">Tick a meal when you've eaten it. Change goal or diet in your <a href="/profile">profile</a>.</p>
+{% endblock %}

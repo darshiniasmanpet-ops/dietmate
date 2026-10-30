@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}DietMate · Week{% endblock %}
+{% block content %}
+<h1>Your week</h1>
+<p class="sub">{{ goal }} · {{ diet }}</p>
+<div class="week">
+  {% for d, b, l, n in plan %}
+  <article class="day {{ 'today' if d == today }}">
+    <h3>{{ d[:3] }}{% if d == today %}<small>today</small>{% endif %}</h3>
+    <p><em>Breakfast</em>{{ b }}</p>
+    <p><em>Lunch</em>{{ l }}</p>
+    <p><em>Dinner</em>{{ n }}</p>
+  </article>
+  {% endfor %}
+</div>
+<p class="actions"><a class="btn" href="/grocery">Make my grocery list</a></p>
+{% endblock %}

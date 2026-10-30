@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %}DietMate · Groceries{% endblock %}
+{% block width %}narrow{% endblock %}
+{% block content %}
+<h1>Grocery list</h1>
+<p class="sub">Everything in your {{ goal }} · {{ diet }} week. The number is how many meals use it.</p>
+<ul class="shop">
+  {% for name, n in items %}
+  <li><label><input type="checkbox"><span>{{ name }}</span></label><b>×{{ n }}</b></li>
+  {% endfor %}
+</ul>
+<p class="hint">Tick items as you shop. The ticks reset when you reload.</p>
+{% endblock %}

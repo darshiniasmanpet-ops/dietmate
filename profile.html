@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}DietMate - Profile{% endblock %}
+{% block content %}
+<h1>👤 Your profile</h1>
+<div class="grid2">
+    <form method="POST" action="/profile" class="panel">
+        <h2>Your details</h2>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        {% include "_profile_fields.html" %}
+        <button type="submit">Save changes</button>
+    </form>
+    <form method="POST" action="/change_password" class="panel">
+        <h2>Change password</h2>
+        <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+        <div><label for="current">Current password</label>
+        <input id="current" type="password" name="current" required></div>
+        <div><label for="new">New password</label>
+        <input id="new" type="password" name="new" minlength="6" required></div>
+        <div><label for="confirm">Confirm new password</label>
+        <input id="confirm" type="password" name="confirm" minlength="6" required></div>
+        <button type="submit">Change password</button>
+    </form>
+</div>
+{% endblock %}

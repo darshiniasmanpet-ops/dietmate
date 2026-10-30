@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}DietMate - Error {{ code }}{% endblock %}
+{% block content %}
+<div class="error-page">
+    <p class="code">{{ code }}</p>
+    <p>{{ message }}</p>
+    <a class="btn" href="/">Go to home</a>
+</div>
+{% endblock %}

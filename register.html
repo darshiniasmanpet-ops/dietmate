@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}DietMate - Register{% endblock %}
+{% block width %}narrow{% endblock %}
+{% block content %}
+<h1>Create your account</h1>
+<form method="POST" class="panel">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    {% include "_profile_fields.html" %}
+    {% import "_forms.html" as f %}
+    {{ f.field("email", "Email address", "email", data.get("email")) }}
+    <div><label for="password">Password (6+ characters)</label>
+    <input id="password" type="password" name="password" minlength="6" required></div>
+    <button type="submit">Create account</button>
+</form>
+<p>Already have an account? <a href="/login">Log in</a></p>
+{% endblock %}

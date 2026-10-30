@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}DietMate · Home{% endblock %}
+{% block content %}
+<h1>Hi {{ u.name.split()[0] }} 👋</h1>
+<p class="sub">{{ u.goal }} · {{ u.diet or 'Non-Veg' }} · {{ u.activity }} activity</p>
+
+<div class="board">
+  <section class="panel plate-card">
+    <div class="ring" style="--p:{{ m.p }};--c:{{ m.p + m.c }}"><div><b>{{ target }}</b><span>kcal a day</span></div></div>
+    <ul class="legend">
+      <li><i class="k-p"></i>Protein <b>{{ m.pg }} g</b></li>
+      <li><i class="k-c"></i>Carbs <b>{{ m.cg }} g</b></li>
+      <li><i class="k-f"></i>Fat <b>{{ m.fg }} g</b></li>
+    </ul>
+    <p class="hint">Maintenance is {{ maintenance }} kcal. Estimates, not medical advice.</p>
+  </section>
+
+  <section class="panel water">
+    <h3>💧 Water today</h3>
+    <div class="glasses">{% for i in range(wgoal) %}<span class="{{ 'full' if i < water }}"></span>{% endfor %}</div>
+    <p><b>{{ water }}</b> of {{ wgoal }} glasses</p>
+    <form method="POST" action="/water" class="pair">
+      <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+      <button name="delta" value="-1" class="secondary" aria-label="Remove a glass">−</button>
+      <button name="delta" value="1">+ Glass</button>
+    </form>
+  </section>
+
+  <section class="panel tile t-streak"><b>{{ streak }}</b><span>day{{ '' if streak == 1 else 's' }} in a row</span><small>{{ done }} of 3 meals ticked today</small></section>
+
+  <section class="panel tile">
+    <b>{{ bmi }}</b><span>BMI · {{ status }}</span>
+    <div class="gauge"><i style="left:{{ gauge }}%"></i></div>
+  </section>
+</div>
+
+{% if note %}<p class="note">{{ note }}</p>{% endif %}
+<p class="actions">
+  <a class="btn" href="/meal_plan">Today's meals</a>
+  <a class="btn secondary" href="/weekly_plan">Weekly plan</a>
+  <a class="btn secondary" href="/grocery">Grocery list</a>
+</p>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% macro field(name, label, type, current, extra="") %}
+<div><label for="{{ name }}">{{ label }}</label>
+<input id="{{ name }}" type="{{ type }}" name="{{ name }}" value="{{ current if current is not none else '' }}" {{ extra|safe }} required></div>
+{% endmacro %}
+
+{% macro select(name, label, options, current) %}
+<div><label for="{{ name }}">{{ label }}</label>
+<select id="{{ name }}" name="{{ name }}" required>
+    <option value="">Select</option>
+    {% for o in options %}<option value="{{ o }}" {% if o == current %}selected{% endif %}>{{ o }}</option>{% endfor %}
+</select></div>
+{% endmacro %}

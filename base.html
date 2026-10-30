@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>{% block title %}DietMate{% endblock %}</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Figtree:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+<nav>
+  <a class="logo" href="/"><i>🥑</i>DietMate</a>
+  <ul>
+    {% if session.get('user_id') %}
+    {% set p = request.path %}
+    <li><a href="/dashboard" class="{{ 'on' if p=='/dashboard' }}">Home</a></li>
+    <li><a href="/meal_plan" class="{{ 'on' if p=='/meal_plan' }}">Today</a></li>
+    <li><a href="/weekly_plan" class="{{ 'on' if p=='/weekly_plan' }}">Week</a></li>
+    <li><a href="/grocery" class="{{ 'on' if p=='/grocery' }}">Groceries</a></li>
+    <li><a href="/progress" class="{{ 'on' if p=='/progress' }}">Progress</a></li>
+    <li><a href="/bmi" class="{{ 'on' if p=='/bmi' }}">BMI</a></li>
+    <li><a href="/profile" class="{{ 'on' if p=='/profile' }}">Profile</a></li>
+    <li><a href="/logout">Log out</a></li>
+    {% else %}
+    <li><a href="/register">Register</a></li>
+    <li><a href="/login">Log in</a></li>
+    {% endif %}
+  </ul>
+</nav>
+{% block body %}
+<main class="container {% block width %}{% endblock %}">
+  {% with messages = get_flashed_messages() %}{% for m in messages %}<p class="flash">{{ m }}</p>{% endfor %}{% endwith %}
+  {% block content %}{% endblock %}
+</main>
+{% endblock %}
+</body>
+</html>

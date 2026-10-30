@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}DietMate · Meals that fit you{% endblock %}
+{% block body %}
+<section class="hero">
+  <div>
+    <h1>Eat for your goal,<br>one plate at a time.</h1>
+    <p>Tell us your body, your goal and whether you eat meat. DietMate builds your week, your calories, your water and your shopping list.</p>
+    <a class="btn" href="/register">Build my plan</a>
+    <a class="btn secondary" href="/login">I have an account</a>
+  </div>
+  <div class="plate" aria-hidden="true"><div class="plate-in"><span>🍛</span><span>🥗</span><span>🍎</span></div></div>
+</section>
+<section class="features">
+  <div class="card"><h2>🔥 Calories</h2><p>A daily target from your age, size and activity.</p></div>
+  <div class="card"><h2>🍽️ Macros</h2><p>Protein, carbs and fat in grams for your goal.</p></div>
+  <div class="card"><h2>💧 Water</h2><p>Tap a glass each time you drink.</p></div>
+  <div class="card"><h2>🛒 Groceries</h2><p>A shopping list made from your week.</p></div>
+  <div class="card"><h2>🔥 Streaks</h2><p>Tick meals off and keep your streak alive.</p></div>
+</section>
+<footer>© 2026 DietMate</footer>
+{% endblock %}

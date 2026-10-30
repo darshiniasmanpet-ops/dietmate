@@ -1,0 +1,10 @@
+{% import "_forms.html" as f %}
+{{ f.field("name", "Full name", "text", data.get("name")) }}
+{{ f.field("age", "Age", "number", data.get("age"), 'min="1" max="120"') }}
+{{ f.select("gender", "Gender", ["Male", "Female", "Other"], data.get("gender")) }}
+{{ f.field("height", "Height (cm)", "number", data.get("height"), 'step="0.1" min="50" max="250"') }}
+{{ f.field("weight", "Weight (kg)", "number", data.get("weight"), 'step="0.1" min="20" max="400"') }}
+{{ f.select("goal", "Goal", ["Weight Loss", "Weight Gain", "Maintain Weight"], data.get("goal")) }}
+{{ f.select("diet", "Diet preference", ["Veg", "Non-Veg"], data.get("diet")) }}
+{{ f.select("activity", "Activity level", ["Sedentary", "Light", "Moderate", "Active"], data.get("activity")) }}
+<p class="hint">Sedentary: desk job, little exercise. Light: 1-3 workouts a week. Moderate: 3-5 workouts. Active: 6-7 workouts or a physical job.</p>

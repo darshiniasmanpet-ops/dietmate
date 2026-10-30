@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block title %}DietMate - Login{% endblock %}
+{% block width %}narrow{% endblock %}
+{% block content %}
+<h1>Log in</h1>
+<form method="POST" class="panel">
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <div><label for="email">Email address</label>
+    <input id="email" type="email" name="email" required></div>
+    <div><label for="password">Password</label>
+    <input id="password" type="password" name="password" required></div>
+    <button type="submit">Log in</button>
+</form>
+<p>New here? <a href="/register">Create an account</a></p>
+{% endblock %}
